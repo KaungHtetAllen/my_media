@@ -5,7 +5,7 @@
 @section('content')
 <form action="">
     <div class="row">
-        <div class="col-7 offset-1 py-3">
+        <div class="col-7 offset-1">
             <div class="form-group mt-3">
                 <label class="mb-2">Name</label>
                 <input type="text" class="form-control" placeholder="Enter Name ...">
@@ -29,7 +29,7 @@
         </div>
     </div>
 </form>
-<div class="row">
+<div class="row mt-3">
     <div class="col-7 offset-1">
         <a href="">Change Password</a>
     </div>
