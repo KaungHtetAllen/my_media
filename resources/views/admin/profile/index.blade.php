@@ -3,35 +3,80 @@
 @section('title','My Media App')
 
 @section('content')
-<form action="">
-    <div class="row">
-        <div class="col-7 offset-1">
-            <div class="form-group mt-3">
-                <label class="mb-2">Name</label>
-                <input type="text" class="form-control" placeholder="Enter Name ...">
-            </div>
-            <div class="form-group mt-3">
-                <label class="mb-2">Email</label>
-                <input type="email" class="form-control" placeholder="Enter Email ...">
-            </div>
-            <div class="form-group mt-3">
-                <label class="mb-2">Phone</label>
-                <input type="number" class="form-control" placeholder="Enter Phone ...">
-            </div>
-            <div class="form-group mt-3">
-                <label class="mb-2">Address</label>
-                <textarea class="form-control" cols="30" rows="5" placeholder="Enter Address ..."></textarea>
-            </div>
-            <div class="form-group mt-3">
-                <button class="btn btn-dark">Update</button>
-            </div>
-
+<div class="col-8 offset-3 mt-5">
+    <div class="col-md-9">
+      <div class="card">
+        <div class="card-header p-2">
+          <legend class="text-center">User Profile</legend>
         </div>
+        <div class="card-body">
+          <div class="tab-content">
+            <div class="active tab-pane" id="activity">
+              <form class="form-horizontal">
+                <div class="form-group row">
+                  <label for="inputName" class="col-sm-2 col-form-label">Name</label>
+                  <div class="col-sm-10">
+                    <input type="text" class="form-control" id="inputName" placeholder="Name" value="{{ $user->name}}">
+                  </div>
+                </div>
+                <div class="form-group row">
+                  <label for="inputEmail" class="col-sm-2 col-form-label">Email</label>
+                  <div class="col-sm-10">
+                    <input type="email" class="form-control" id="inputEmail" placeholder="Email" value="{{ $user->email }}">
+                  </div>
+                </div>
+                <div class="form-group row">
+                    <label for="inputPhone" class="col-sm-2 col-form-label">Phone</label>
+                    <div class="col-sm-10">
+                      <input type="number" class="form-control" id="inputPhone" placeholder="Phone" value="{{ $user->phone }}">
+                    </div>
+                  </div>
+                  <div class="form-group row">
+                    <label for="inputAddress" class="col-sm-2 col-form-label">Address</label>
+                    <div class="col-sm-10">
+                      <textarea cols="10" rows="5" class="form-control" id="inputAddress" placeholder="Address">{{ $user->address }}</textarea>
+                    </div>
+                  </div>
+                  <div class="form-group row">
+                    <label for="inputGender" class="col-sm-2 col-form-label">Gender</label>
+                    <div class="col-sm-10">
+                      <select  class="form-control" id="inputGender">
+                        @if ($user->gender == 'male')
+                        <option value="empty">Choose Gender ...</option>
+                        <option value="male" selected>Male</option>
+                        <option value="female">Female</option>
+                        @elseif($user->gender == 'female')
+                        <option value="empty">Choose Gender ...</option>
+                        <option value="male">Male</option>
+                        <option value="female" selected>Female</option>
+                        @else
+                        <option value="empty" selected>Choose Gender ...</option>
+                        <option value="male">Male</option>
+                        <option value="female">Female</option>
+                        @endif
+
+                      </select>
+                    </div>
+                  </div>
+
+
+                <div class="form-group row">
+                  <div class="offset-sm-2 col-sm-10">
+                    <button type="submit" class="btn bg-dark text-white">Update</button>
+                  </div>
+                </div>
+              </form>
+              <div class="form-group row">
+                <div class="offset-sm-2 col-sm-10">
+                  <a href="">Change Password</a>
+                </div>
+              </div>
+
+            </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
-</form>
-<div class="row mt-3">
-    <div class="col-7 offset-1">
-        <a href="">Change Password</a>
-    </div>
-</div>
+  </div>
 @endsection

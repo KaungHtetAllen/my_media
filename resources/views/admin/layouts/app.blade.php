@@ -1,41 +1,104 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>@yield('title')</title>
-    {{-- Bootstrap link --}}
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>@yield('title')</title>
+
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
+  <link rel="stylesheet" href="{{ asset('plugins/fontawesome-free/css/all.min.css')}}">
+  <link rel="stylesheet" href="{{ asset('dist/css/adminlte.min.css')}}">
 </head>
-<body>
-    <div class="container-fluid mt-5">
-        <div class="row">
-            <div class="col-4 text-center bg">
-                <a href="{{ route('dashboard')}}">
-                    <button class="btn bg-dark text-white w-50 my-2">Profile</button>
-                </a>
-                <a href="{{ route('admin#list')}}">
-                    <button class="btn bg-dark text-white w-50 my-2">Admin List</button>
-                </a>
-                <a href="{{ route('admin#category')}}">
-                    <button class="btn bg-dark text-white w-50 my-2">Category</button>
-                </a>
-                <a href="{{ route('admin#post')}}">
-                    <button class="btn bg-dark text-white w-50 my-2">Post</button>
-                </a>
-                <a href="{{ route('admin#trendPost')}}">
-                    <button class="btn bg-dark text-white w-50 my-2">Trend Post</button>
-                </a>
-                <form method="POST" action="{{ route('logout')}}">
-                    @csrf
-                    <button class="btn bg-danger text-white w-50 my-2" type="submit">Log Out</button>
-                </form>
-            </div>
-            <div class="col">@yield('content')</div>
-        </div>
+<body class="hold-transition sidebar-mini">
+<div class="wrapper">
+  <nav class="main-header navbar navbar-expand navbar-white navbar-light">
+    <ul class="navbar-nav">
+      <li class="nav-item">
+        <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
+      </li>
+    </ul>
+  </nav>
+  <aside class="main-sidebar sidebar-dark-primary elevation-4">
+    <a href="#" class="brand-link text-center">
+
+      <h4 class="brand-text font-weight-bold">My Media App </h4>
+    </a>
+    <div class="sidebar">
+      <nav class="mt-2">
+        <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+
+          <li class="nav-item">
+            <a href="{{ route('dashboard')}}" class="nav-link">
+              <i class="fas fa-user-circle mr-2"></i>
+              <p>
+                My Profile
+              </p>
+            </a>
+          </li>
+
+          <li class="nav-item">
+            <a href="{{ route('admin#list')}}" class="nav-link">
+                <i class="fas fa-users mr-2"></i>
+              <p>
+                Admin List
+              </p>
+            </a>
+          </li>
+
+          <li class="nav-item">
+            <a href="{{ route('admin#category')}}" class="nav-link">
+              <i class="fas fa-list mr-2"></i>
+              <p>
+                Category
+              </p>
+            </a>
+          </li>
+
+          <li class="nav-item">
+            <a href="{{ route('admin#post')}}" class="nav-link">
+              <i class="fas fa-pizza-slice ms-5 mr-2"></i>
+              <p>
+                Post
+              </p>
+            </a>
+          </li>
+
+         <li class="nav-item">
+            <a href="{{ route('admin#trendPost')}}" class="nav-link">
+            <i class="fas fa-users mr-2"></i>
+              <p>
+                Trend Post
+              </p>
+            </a>
+          </li>
+
+          <li class="nav-item">
+            <form action="{{ route('logout')}}" method="POST">
+                @csrf
+                <button type="submit" class="btn btn-dark w-100 text-left bg-gradient-danger"><i class="fas fa-sign-out-alt mr-2 ml-1"></i>Log Out</button>
+            </form>
+          </li>
+        </ul>
+      </nav>
     </div>
+  </aside>
+
+  <div class="content-wrapper">
+    <section class="content">
+      <div class="container-fluid">
+        <div class="row mt-4">
+          @yield('content')
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <aside class="control-sidebar control-sidebar-dark">
+  </aside>
+</div>
+<script src="{{ asset('plugins/jquery/jquery.min.js')}}"></script>
+<script src="{{ asset('plugins/bootstrap/js/bootstrap.bundle.min.js')}}"></script>
+<script src="{{ asset('dist/js/adminlte.min.js')}}"></script>
+<script src="{{ asset('dist/js/demo.js')}}"></script>
 </body>
-    {{-- Bootstrap Link --}}
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
 </html>
