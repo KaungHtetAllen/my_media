@@ -26,6 +26,7 @@ Route::middleware(['auth:sanctum',config('jetstream.auth_session'),'verified'])-
 
     //admin profile
     Route::get('dashboard',[ProfileController::class,'index'])->name('dashboard');
+    Route::post('admin/update',[ProfileController::class,'updateAdminAccount'])->name('admin#updateAdminAccount');
 
     //admin list
     Route::get('admin/list',[AdminListController::class,'index'])->name('admin#list');
