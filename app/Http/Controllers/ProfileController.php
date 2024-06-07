@@ -6,6 +6,7 @@ use Carbon\Carbon;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 
 class ProfileController extends Controller
@@ -34,7 +35,37 @@ class ProfileController extends Controller
         return back()->with(['updateSuccess'=>'Account Updated!']);
     }
 
-    //user validation check
+    //direct change password page
+    public function changePasswordPage(){
+        return view('admin.profile.changePassword');
+    }
+
+    //change password
+    public function changePassword(Request $request){
+        // dd($request->all());
+        $validator = $this->passwordValidationCheck($request);
+        if($validator->fails()){
+            return back()->withErrors($validator)->withInput();
+        }
+        $dbData = User::where('id',Auth::user()->id)->first();
+        $dbPassword = $dbData->password;
+        $inputPassword = $request->adminOldPassword;
+
+        if(Hash::check($inputPassword, $dbPassword)){
+            $data = [
+                'password'=>Hash::make($request->adminNewPassword),
+                'updated_at'=>Carbon::now(),
+            ];
+            User::where('id',Auth::user()->id)->update($data);
+            return back()->with(['changeSuccess'=>'Passsword Changed!']);
+        }
+        else{
+            return back()->with(['notMatch'=>'Old password is wrong! Try agin!']);
+        }
+    }
+
+
+    //account update validation check
     private function userValidationCheck($request){
         Validator::make($request->all(),[
             'adminName'=>'required',
@@ -43,5 +74,21 @@ class ProfileController extends Controller
             'adminName.required'=>'Name is required!',
             'adminEmail.required'=>'Email is required!',
         ])->validate();
+    }
+
+    //password change vaildation check
+    private function passwordValidationCheck($request){
+        $validationRules = [
+            'adminOldPassword'=> 'required',
+            'adminNewPassword'=>'required|min:8',
+            'adminConfirmPassword'=>'required|min:8|same:adminNewPassword',
+        ];
+        $validationMessages = [
+            'adminOldPassword.required'=>'Old Password is required!',
+            'adminNewPassword.required'=>'New Password is required!',
+            'adminConfirmPassword.required'=>'Confrim Password is required!',
+            'adminConfirmPassword.same' => 'New password & confirm password must be the same!'
+        ];
+        return Validator::make($request->all(),$validationRules,$validationMessages);
     }
 }

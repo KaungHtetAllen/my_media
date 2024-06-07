@@ -28,6 +28,11 @@ Route::middleware(['auth:sanctum',config('jetstream.auth_session'),'verified'])-
     Route::get('dashboard',[ProfileController::class,'index'])->name('dashboard');
     Route::post('admin/update',[ProfileController::class,'updateAdminAccount'])->name('admin#updateAdminAccount');
 
+    //admin password change
+    Route::get('admin/changePasswordPage',[ProfileController::class,'changePasswordPage'])->name('admin#changePasswordPage');
+    Route::post('admin/changePassword',[ProfileController::class,'changePassword'])->name('admin#changePassword');
+
+
     //admin list
     Route::get('admin/list',[AdminListController::class,'index'])->name('admin#list');
 
