@@ -18,4 +18,13 @@ class AdminListController extends Controller
         User::where('id',$id)->delete();
         return back()->with(['deleteSuccess'=>'Admin Account Deleted!']);
     }
+
+    //admin list search
+    public function adminListSearch(Request $request){
+        // dd($request->all());
+        $users = User::orWhere('name','like','%'.$request->adminSearchKey.'%')
+                    ->orWhere('email','like','%'.$request->adminSearchKey.'%')
+                    ->get();
+        return redirect()->route('admin#list',compact('users'));
+    }
 }

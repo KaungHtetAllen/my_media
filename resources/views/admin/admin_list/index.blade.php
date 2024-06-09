@@ -23,15 +23,18 @@
         <h3 class="card-title">User Table</h3>
 
         <div class="card-tools">
-          <div class="input-group input-group-sm" style="width: 150px;">
-            <input type="text" name="table_search" class="form-control float-right" placeholder="Search">
+          <form action="{{ route('admin#adminListSearch')}}" method="POST">
+            @csrf
+            <div class="input-group input-group-sm" style="width: 150px;">
+                <input type="text" name="adminSearchKey" value="{{ old('adminSearchKey')}}" class="form-control float-right" placeholder="Search">
 
-            <div class="input-group-append">
-              <button type="submit" class="btn btn-default">
-                <i class="fas fa-search"></i>
-              </button>
-            </div>
-          </div>
+                <div class="input-group-append">
+                  <button type="submit" class="btn btn-default">
+                    <i class="fas fa-search"></i>
+                  </button>
+                </div>
+              </div>
+          </form>
         </div>
       </div>
       <!-- /.card-header -->
@@ -59,7 +62,9 @@
                 <td>{{ $user->gender }}</td>
                 <td>
                   {{-- <button class="btn btn-sm bg-dark text-white"><i class="fas fa-edit"></i></button> --}}
-                    @if ($user->id != Auth::user()->id)
+                    @if ($user->id == '1')
+                    <button disabled="disabled" class="btn btn-sm btn-success text-white">Owner</button>
+                    @elseif ($user->id != Auth::user()->id)
                     <a href="{{ route('admin#delete',$user->id)}}">
                         <button class="btn btn-sm bg-danger text-white"><i class="fas fa-trash-alt"></i></button>
                     </a>
@@ -73,4 +78,6 @@
       <!-- /.card-body -->
     </div>
     <!-- /.card -->
-  </div>@endsection
+</div>
+
+@endsection
