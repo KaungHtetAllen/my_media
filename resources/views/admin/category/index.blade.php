@@ -37,6 +37,18 @@
     </div>
 </div>
 <div class="col-6">
+        @if(session('deleteSuccess'))
+        <div class="row mt-3">
+            <div class="col offset-7">
+                <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                   <span>{{ session('deleteSuccess')}}</span>
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                      <span aria-hidden="true">&times;</span>
+                    </button>
+                  </div>
+            </div>
+        </div>
+        @endif
     <div class="card mt-3">
       <div class="card-header">
         <h3 class="card-title">
@@ -44,15 +56,18 @@
         </h3>
 
         <div class="card-tools">
-          <div class="input-group input-group-sm" style="width: 150px;">
-            <input type="text" name="table_search" class="form-control float-right" placeholder="Search">
+          <form action="{{ route('admin#categorySearch')}}" method="POST">
+            @csrf
+            <div class="input-group input-group-sm" style="width: 150px;">
+                <input type="text" name="categorySearchKey" value="{{ old('categorySearchKey')}}" class="form-control float-right" placeholder="Search">
 
-            <div class="input-group-append">
-              <button type="submit" class="btn btn-default">
-                <i class="fas fa-search"></i>
-              </button>
-            </div>
-          </div>
+                <div class="input-group-append">
+                  <button type="submit" class="btn btn-default">
+                    <i class="fas fa-search"></i>
+                  </button>
+                </div>
+              </div>
+          </form>
         </div>
       </div>
       <!-- /.card-header -->
@@ -76,7 +91,9 @@
                 <td>{{ $category->created_at->format('d-M-Y')}}</td>
                 <td>
                   <button class="btn btn-sm bg-dark text-white"><i class="fas fa-edit"></i></button>
-                  <button class="btn btn-sm bg-danger text-white"><i class="fas fa-trash-alt"></i></button>
+                    <a href="{{ route('admin#deleteCategory',$category->id)}}">
+                        <button class="btn btn-sm bg-danger text-white"><i class="fas fa-trash-alt"></i></button>
+                    </a>
                 </td>
               </tr>
             @endforeach

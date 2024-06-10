@@ -27,6 +27,19 @@ class CategoryController extends Controller
         return redirect()->route('admin#category');
     }
 
+    //delete category
+    public function deleteCategory($id){
+        Category::where('id',$id)->delete();
+        return back()->with(['deleteSuccess'=>'Category is Deleted!']);
+    }
+
+    //search category
+    public function categorySearch(Request $request){
+        $categories = Category::orWhere('title','like','%'.$request->categorySearchKey.'%')
+                                ->orWhere('description','like','%'.$request->categorySearchKey.'%')
+                                ->get();
+        return view('admin.category.index',compact('categories'));
+    }
     //category create validation check
     private function categoryCreateValidationCheck($request){
         $validationRules = [

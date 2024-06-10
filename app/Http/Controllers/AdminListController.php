@@ -25,6 +25,6 @@ class AdminListController extends Controller
         $users = User::orWhere('name','like','%'.$request->adminSearchKey.'%')
                     ->orWhere('email','like','%'.$request->adminSearchKey.'%')
                     ->get();
-        return redirect()->route('admin#list',compact('users'));
+        return view('admin.admin_list.index',compact('users'));
     }
 }
