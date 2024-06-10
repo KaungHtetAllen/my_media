@@ -5,15 +5,16 @@
     <div class="card mt-3">
         <div class="card-header">
             <div class="card-title">
-                <div class="text-success" style="font-weight: 800;font-size:1.3rem">Create Category</div>
+                <div class="text-success" style="font-weight: 800;font-size:1.3rem">Edit Category</div>
             </div>
         </div>
         <div class="card-body">
-            <form action="{{ route('admin#createCategory')}}" method="POST">
+            <form action="{{ route('admin#updateCategory')}}" method="POST">
                 @csrf
+                <input type='hidden' name='categoryId' value='{{ $updatedData->id }}' />
                 <div class="form-group">
                     <label for="">Category Name</label>
-                    <input type="text" class="form-control @error('categoryName') is-invalid @enderror" name="categoryName" placeholder="Enter Category Name ...">
+                    <input type="text" value='{{ old('categoryName',$updatedData->title)}}' class="form-control @error('categoryName') is-invalid @enderror" name="categoryName" placeholder="Enter Category Name ...">
                     @error('categoryName')
                     <span class="text-danger">
                         {{ $message }}
@@ -22,7 +23,7 @@
                 </div>
                 <div class="form-group">
                     <label for="">Category Description</label>
-                    <textarea class="form-control @error('categoryDescription') is-invalid @enderror" name="categoryDescription" cols="30" rows="5" placeholder="Enter Category Description ..."></textarea>
+                    <textarea class="form-control @error('categoryDescription') is-invalid @enderror" name="categoryDescription" cols="30" rows="5" placeholder="Enter Category Description ...">{{ old('categoryDescription',$updatedData->description)}}</textarea>
                     @error('categoryDescription')
                     <span class="text-danger">
                         {{ $message }}
@@ -30,7 +31,7 @@
                     @enderror
                 </div>
                 <div class="form-group">
-                    <button class="btn btn-success" type="submit">Create</button>
+                    <button class="btn btn-success" type="submit">Update</button>
                 </div>
             </form>
         </div>
@@ -49,18 +50,7 @@
             </div>
         </div>
         @endif
-        @if(session('updateSuccess'))
-        <div class="row mt-3">
-            <div class="col offset-7">
-                <div class="alert alert-info alert-dismissible fade show" role="alert">
-                   <span>{{ session('updateSuccess')}}</span>
-                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                      <span aria-hidden="true">&times;</span>
-                    </button>
-                  </div>
-            </div>
-        </div>
-        @endif
+       
     <div class="card mt-3">
       <div class="card-header">
         <h3 class="card-title">

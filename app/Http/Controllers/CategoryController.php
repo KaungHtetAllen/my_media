@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Carbon\Carbon;
 use App\Models\Category;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
@@ -17,7 +18,7 @@ class CategoryController extends Controller
     //create category
     public function createCategory(Request $request){
         // dd($request->all());
-        $this->categoryCreateValidationCheck($request);
+        $this->categoryValidationCheck($request);
         $data = [
             'title'=>$request->categoryName,
             'description'=>$request->categoryDescription
@@ -40,8 +41,37 @@ class CategoryController extends Controller
                                 ->get();
         return view('admin.category.index',compact('categories'));
     }
+
+    //direct category edit page
+    public function categoryEditPage($id){
+        $categories = Category::get();
+        $updatedData = Category::where('id',$id)->first();
+        // dd($updatedData->toArray());
+        return view('admin.category.edit',compact('categories','updatedData'));
+    }
+
+    //update category
+    public function updateCategory(Request $request){
+        // dd($request->all());
+        $this->categoryValidationCheck($request);
+        $data = [
+            'title'=>$request->categoryName,
+            'description'=>$request->categoryDescription,
+            'updated_at'=>Carbon::now(),
+        ];
+
+        Category::where('id',$request->categoryId)->update($data);
+        return redirect()->route('admin#category')->with(['updateSuccess'=>'Category is updated!']);
+    }
+
+
+
+
+
+
+
     //category create validation check
-    private function categoryCreateValidationCheck($request){
+    private function categoryValidationCheck($request){
         $validationRules = [
             'categoryName'=>'required|min:4',
             'categoryDescription'=>'required|',
