@@ -13,7 +13,7 @@
                 @csrf
                 <div class="form-group">
                     <label for="">Post Title</label>
-                    <input type="text" value="{{ old('postTitle')}}" class="form-control @error('postTitle') is-invalid @enderror" name="postTitle" placeholder="Enter Post Title ...">
+                    <input type="text" value="{{ old('postTitle',$data->title)}}" class="form-control @error('postTitle') is-invalid @enderror" name="postTitle" placeholder="Enter Post Title ...">
                     @error('postTitle')
                     <span class="text-danger">
                         {{ $message }}
@@ -22,7 +22,7 @@
                 </div>
                 <div class="form-group">
                     <label for="">Post Description</label>
-                    <textarea class="form-control @error('postDescription') is-invalid @enderror" name="postDescription" cols="30" rows="5" placeholder="Enter Post Description ...">{{ old('postDescription')}}</textarea>
+                    <textarea class="form-control @error('postDescription') is-invalid @enderror" name="postDescription" cols="30" rows="5" placeholder="Enter Post Description ...">{{ old('postDescription',$data->description)}}</textarea>
                     @error('postDescription')
                     <span class="text-danger">
                         {{ $message }}
@@ -31,14 +31,19 @@
                 </div>
                 <div class="form-group">
                     <label for="">Post Image</label>
-                    <input type="file" class="form-control" name="postImage">
+                    {{-- <input type="file" class="form-control" name="postImage"> --}}
+                    @if(!$data->image)
+                    <image src="{{ asset('default_image.jpg')}}" class='img-thumbnail'>
+                    @else
+                    <image src="{{ asset('postImage/'.$data->image)}}" class='img-thumbnail'>
+                    @endif
                 </div>
                 <div class="form-group">
                     <label for="">Post Category</label>
                     <select  name="postCategory" class="form-control  @error('postCategory') is-invalid @enderror">
                         <option value="">Choose Option ...</option>
                         @foreach ($categories as $category)
-                        <option value="{{ $category->id}}">{{ $category->title }}</option>
+                        <option value="{{ $category->id}}" @if($data->category_id == $category->id) selected @endif>{{ $category->title }}</option>
                         @endforeach
                     </select>
                     @error('postCategory')
@@ -48,7 +53,7 @@
                     @enderror
                 </div>
                 <div class="form-group">
-                    <button class="btn btn-success" type="submit">Create</button>
+                    <button class="btn btn-primary" type="submit">Update</button>
                 </div>
             </form>
         </div>

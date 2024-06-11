@@ -50,6 +50,15 @@ class PostController extends Controller
         Post::where('id',$id)->delete();
         return back()->with(['deleteSuccess'=>'Post is deleted!']);
     }
+
+    //direct post edit page
+    public function postEditPage($id){
+        $data = Post::where('id',$id)->first();
+        $categories = Category::get();
+        $posts = Post::get();
+        return view('admin.post.edit',compact('data','categories','posts'));
+    }
+
     //validation check
     private function validationCheck($request){
         Validator::make($request->all(),[
