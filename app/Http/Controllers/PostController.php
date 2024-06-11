@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Post;
 use App\Models\Category;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Validator;
 
 class PostController extends Controller
@@ -39,6 +40,16 @@ class PostController extends Controller
         return redirect()->route('admin#post',compact('categories','posts'));
     }
 
+    //delete post
+    public function deletePost($id){
+        // dd($id);
+        $postData = Post::where('id',$id)->first();
+        if($postData->image){
+            File::delete(public_path().'/postImage/'.$postData->image);
+        }
+        Post::where('id',$id)->delete();
+        return back()->with(['deleteSuccess'=>'Post is deleted!']);
+    }
     //validation check
     private function validationCheck($request){
         Validator::make($request->all(),[
