@@ -9,7 +9,7 @@
             </div>
         </div>
         <div class="card-body">
-            <form action="{{ route('admin#createPost')}}" method="POST" enctype="multipart/form-data">
+            <form action="{{ route('admin#updatePost',$data->id)}}" method="POST" enctype="multipart/form-data">
                 @csrf
                 <div class="form-group">
                     <label for="">Post Title</label>
@@ -31,12 +31,13 @@
                 </div>
                 <div class="form-group">
                     <label for="">Post Image</label>
-                    {{-- <input type="file" class="form-control" name="postImage"> --}}
                     @if(!$data->image)
-                    <image src="{{ asset('default_image.jpg')}}" class='img-thumbnail'>
+                    <image src="{{ asset('default_image.jpg')}}" class='img-thumbnail rounded shadow'>
                     @else
-                    <image src="{{ asset('postImage/'.$data->image)}}" class='img-thumbnail'>
+                    <image src="{{ asset('postImage/'.$data->image)}}" class='img-thumbnail rounded shadow'>
                     @endif
+                  <input type="file" class="form-control" name="postImage">
+
                 </div>
                 <div class="form-group">
                     <label for="">Post Category</label>
@@ -124,9 +125,9 @@
                 <td>{{ $post->title }}</td>
                 <td>
                     @if (!$post->image)
-                    <img width="100px" src="{{ asset('default_image.jpg')}}" class="img-thumbnail" alt="">
+                    <img width="100px" src="{{ asset('default_image.jpg')}}" class="img-thumbnail rounded shadow" alt="">
                     @else
-                    <img width="100px" class="img-thumnail" src="{{ asset('postImage/'.$post->image)}}" alt="">
+                    <img width="100px" class="img-thumnail rounded shadow" src="{{ asset('postImage/'.$post->image)}}" alt="">
                     @endif
                 </td>
                 <td>{{ $post->created_at->format('d-M-Y')}}</td>

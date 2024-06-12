@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Carbon\Carbon;
 use App\Models\Post;
 use App\Models\Category;
 use Illuminate\Http\Request;
@@ -58,6 +59,34 @@ class PostController extends Controller
         $posts = Post::get();
         return view('admin.post.edit',compact('data','categories','posts'));
     }
+
+    //update post
+    public function updatePost(Request $request,$id){
+        // dd($id,$request->all());
+        $this->validationCheck($request);
+        $data = [
+            'title'=>$request->postTitle,
+            'description'=>$request->postDescription,
+            'category_id'=>$request->postCategory,
+            'updated_at'=>Carbon::now()
+        ];
+
+        if($request->postImage){
+            //getting data
+            $oldData = Post::where('id',$id)->first();
+            $oldImage = $oldData->image;
+            $newImage = uniqid().'_'.$request->file('postImage')->getClientOriginalName();
+
+            //function
+            File::delete(public_path().'/postImage/'.$oldImage);
+            $data['image'] = $newImage;
+            $request->file('postImage')->move(public_path().'/postImage',$newImage);
+        }
+
+        Post::where('id',$id)->update($data);
+        return redirect()->route('admin#post')->with(['updateSuccess'=>'Post is Updated!']);
+    }
+
 
     //validation check
     private function validationCheck($request){
