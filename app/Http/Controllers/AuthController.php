@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use App\Models\Category;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 
@@ -19,6 +20,12 @@ class AuthController extends Controller
                     'token'=>$user->createToken(time())->plainTextToken
                 ]);
             }
+            else{
+                return response()->json([
+                    'user'=>null,
+                    'token'=>null,
+                ]);
+            }
 
         }
         else{
@@ -29,10 +36,30 @@ class AuthController extends Controller
         }
     }
 
+    //user register and release token
+    public function register(Request $request){
+        $data = [
+            'name'=>$request->name,
+            'email'=>$request->email,
+            'password'=>Hash::make($request->password)
+        ];
+
+        User::create($data);
+
+        $user = User::where('email',$request->email)->first();
+        return response()->json([
+            'user'=>$user,
+            'token'=>$user->createToken(time())->plainTextToken
+        ]);
+
+    }
+
     //category list
     public function categoryList(){
+        $categories = Category::get();
         return response()->json([
-            'message'=>'true'
+            'message'=>'true',
+            'data'=>$categories
         ]);
     }
 }

@@ -20,4 +20,5 @@ use App\Http\Controllers\AuthController;
 // });
 
 Route::post('user/login',[AuthController::class,'login']);
+Route::post('user/register',[AuthController::class,'register']);
 Route::get('category',[AuthController::class,'categoryList'])->middleware('auth:sanctum');
