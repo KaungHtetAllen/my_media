@@ -4,12 +4,19 @@ export default {
     name:'HomePage',
     data () {
         return {
-            message: 'HI Bitch'
+            postLists:{},
+        }
+    },
+    methods: {
+        getALlPosts () {
+            axios.get('http://localhost:8000/api/allPost').then((response)=>{
+                this.postLists = response.data.posts;
+                console.log(this.postLists);
+            
+            })
         }
     },
     mounted () {
-        axios.get('http://localhost:8000/api/allPost').then((response)=>{
-            console.log(response.data);
-        })
+        this.getALlPosts();
     }
 }
