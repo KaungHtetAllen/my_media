@@ -10,9 +10,9 @@ class ApiPostController extends Controller
 {
     //get all post
     public function getAllPost(){
-        $posts = Post::get();
+        $posts = Post::select('posts.*','categories.title as category_title','categories.description as category_description')->leftJoin('categories','posts.category_id','categories.id')->get();
         return response()->json([
-            'data'=>$posts
+            'posts'=>$posts
         ]);
     }
 }
