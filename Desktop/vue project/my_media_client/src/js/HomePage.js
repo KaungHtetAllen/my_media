@@ -5,11 +5,14 @@ export default {
     data () {
         return {
             postLists:{},
+            categoryLists:{},
         }
     },
     methods: {
         getALlPosts () {
-            axios.get('http://localhost:8000/api/allPost').then((response)=>{
+            axios
+            .get('http://localhost:8000/api/allPost')
+            .then((response)=>{
                 for(let i = 0; i < response.data.posts.length; i++){
                     // console.log(response.data.posts);
                     if(response.data.posts[i].image != null){
@@ -22,9 +25,23 @@ export default {
                 this.postLists = response.data.posts;
             
             })
+            .catch((error)=>{
+                console.log(error);
+            });
+        },
+        getAllCategories(){
+            axios
+            .get('http://localhost:8000/api/allCategory')
+            .then((response)=>{
+                this.categoryLists = response.data.categories;
+            })
+            .catch((error)=>{
+                console.log(error);
+            });
         }
     },
     mounted () {
         this.getALlPosts();
+        this.getAllCategories();
     }
 }
