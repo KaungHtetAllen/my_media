@@ -48,12 +48,12 @@
                               <div class="single-what-news mb-100">
                                 <div class="what-img">
                                   <img
-                                    src="assets/img/news/whatNews1.jpg"
+                                    :src="post.image"
                                     alt=""
                                   />
                                 </div>
                                 <div class="what-cap">
-                                  <span class="color1">Night party</span>
+                                  <span class="color1">{{ post.category_title}}</span>
                                   <h4>
                                     <a href="details.html"
                                       >{{ post.title}}</a
