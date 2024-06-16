@@ -6,6 +6,7 @@ export default {
         return {
             postLists:{},
             categoryLists:{},
+            searchKey:'',
         }
     },
     methods: {
@@ -38,6 +39,25 @@ export default {
             .catch((error)=>{
                 console.log(error);
             });
+        },
+        search(){
+            // console.log(this.searchKey);
+            let search = {
+                key:this.searchKey
+            };
+            axios.post('http://localhost:8000/api/post/search',search).then((response)=>{
+                // console.log(response);
+                for(let i = 0; i < response.data.searchData.length; i++){
+                    // console.log(response.data.searchData);
+                    if(response.data.searchData[i].image != null){
+                        response.data.searchData[i].image = 'http://127.0.0.1:8000/postImage/' + response.data.searchData[i].image;
+                    }
+                    else{
+                        response.data.searchData[i].image = 'http://127.0.0.1:8000/default_image.jpg';
+                    }
+                }
+                this.postLists = response.data.searchData;
+            })
         }
     },
     mounted () {

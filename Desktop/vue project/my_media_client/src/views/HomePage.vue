@@ -29,6 +29,10 @@
                 </div>
                 <div class="row">
                   <div class="col-12">
+                    <div class="d-flex justify-content-end mb-4">
+                      <input type="text" class="form-control col-3" v-model="searchKey" v-on:keyup.enter="search()">
+                      <button @click="search()" class="btn-sm btn-dark ml-2 d-flex justify-content-center align-items-center" style="cursor:pointer"><i class="fa-solid fa-magnifying-glass" style="font-size:1rem"></i></button>
+                    </div>
                     <!-- Nav Card -->
                     <div class="tab-content" id="nav-tabContent">
                       <!-- card one -->
