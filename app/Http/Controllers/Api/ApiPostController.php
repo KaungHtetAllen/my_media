@@ -15,4 +15,13 @@ class ApiPostController extends Controller
             'posts'=>$posts
         ]);
     }
+
+    //data searching
+    public function postSearch(Request $request){
+        // logger($request->all());
+        $posts =  Post::where('title','like','%'.$request->key.'%')->get();
+        return response()->json([
+            'searchData'=>$posts
+        ]);
+    }
 }
