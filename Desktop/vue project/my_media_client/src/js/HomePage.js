@@ -58,6 +58,23 @@ export default {
                 }
                 this.postLists = response.data.searchData;
             })
+        },
+        categorySearch(searchKey){
+            let search = {
+                key:searchKey,
+            };
+            axios.post('http://localhost:8000/api/category/search',search).then((response)=>{
+                for(let i = 0; i < response.data.result.length; i++){
+                    // console.log(response.data.result);
+                    if(response.data.result[i].image != null){
+                        response.data.result[i].image = 'http://127.0.0.1:8000/postImage/' + response.data.result[i].image;
+                    }
+                    else{
+                        response.data.result[i].image = 'http://127.0.0.1:8000/default_image.jpg';
+                    }
+                }
+                this.postLists = response.data.result;
+            })
         }
     },
     mounted () {

@@ -17,8 +17,8 @@
                                     <!--Nav Button  -->
                                     <nav>
                                         <div class="nav nav-tabs" id="nav-tab" role="tablist">
-                                            <a class="nav-item nav-link active" id="nav-home-tab" data-toggle="tab" href="details.htmlnav-home" role="tab" aria-controls="nav-home" aria-selected="true">All</a>
-                                            <a class="nav-item nav-link" id="nav-profile-tab" data-toggle="tab" href="details.htmlnav-profile" role="tab" aria-controls="nav-profile" aria-selected="false" v-for="(category,index) in categoryLists" :key="index" >{{ category.title}}</a>
+                                            <a @click="categorySearch('')" class="nav-item nav-link active" id="nav-home-tab" data-toggle="tab" href="details.htmlnav-home" role="tab" aria-controls="nav-home" aria-selected="true">All</a>
+                                            <a @click="categorySearch(category.title)" class="nav-item nav-link" id="nav-profile-tab" data-toggle="tab" href="details.htmlnav-profile" role="tab" aria-controls="nav-profile" aria-selected="false" v-for="(category,index) in categoryLists" :key="index" >{{ category.title}}</a>
                                         </div>
                                     </nav>
                                     <!--End Nav Button  -->
@@ -44,7 +44,10 @@
                       >
                         <div class="whats-news-caption">
                           <div class="row">
-                            <div class="col-lg-6 col-md-6" v-for="(post,index) in postLists" :key="index">
+                            <div v-if="postLists.length == 0" class="mx-auto my-5 d-flex align-items-center" style="height:150px">
+                              <h3 class="text-danger">There is no data!</h3>
+                            </div>
+                            <div v-else class="col-lg-6 col-md-6" v-for="(post,index) in postLists" :key="index">
                               <div class="single-what-news mb-100">
                                 <div class="what-img">
                                   <img
