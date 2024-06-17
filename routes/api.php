@@ -31,3 +31,4 @@ Route::post('post/search',[ApiPostController::class,'postSearch']);
 
 //category
 Route::get('allCategory',[CategoryController::class,'getAllCategory']);
+Route::post('category/search',[CategoryController::class,'categorySearch']);

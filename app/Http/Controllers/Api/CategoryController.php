@@ -17,5 +17,15 @@ class CategoryController extends Controller
         ]);
     }
 
-    
+    //search post with category
+    public function categorySearch(Request $request){
+        // logger($request->all());
+        $posts = Category::select('posts.*','categories.title as category_title','categories.description as category_description')
+                    ->join('posts','categories.id','posts.category_id')
+                    ->where('categories.title','like','%'.$request->key.'%')
+                    ->get();
+        return response()->json([
+            'result'=>$posts
+        ]);
+    }
 }
