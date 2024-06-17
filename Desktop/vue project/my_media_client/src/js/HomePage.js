@@ -75,6 +75,15 @@ export default {
                 }
                 this.postLists = response.data.result;
             })
+        },
+        postDetail(id){
+            // console.log(id);
+            this.$router.push({
+                name:'postDetail', //name from index.ts 
+                params:{
+                    postId:id
+                }
+            });
         }
     },
     mounted () {

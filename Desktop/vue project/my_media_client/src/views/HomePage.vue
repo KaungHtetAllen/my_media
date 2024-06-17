@@ -48,7 +48,7 @@
                               <h3 class="text-danger">There is no data!</h3>
                             </div>
                             <div v-else class="col-lg-6 col-md-6" v-for="(post,index) in postLists" :key="index">
-                              <div class="single-what-news mb-100">
+                              <div class="single-what-news mb-100" @click="postDetail(post.id)">
                                 <div class="what-img">
                                   <img
                                     :src="post.image"
