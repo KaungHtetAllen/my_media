@@ -1,4 +1,5 @@
 import axios from "axios";
+import LoginPage from "./LoginPage";
 
 export default {
     name:'HomePage',
@@ -84,6 +85,16 @@ export default {
                     postId : id,
                 }
             });
+        },
+        home(){
+            this.$router.push({
+                name:'home'
+            })
+        },
+        loginPage(){
+            this.$router.push({
+                name:'loginPage'
+            })
         }
     },
     mounted () {

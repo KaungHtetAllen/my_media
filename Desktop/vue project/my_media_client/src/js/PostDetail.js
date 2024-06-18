@@ -27,6 +27,16 @@ export default {
         },
         back(){
             history.back();
+        },
+        home(){
+            this.$router.push({
+                name:'home'
+            })
+        },
+        loginPage(){
+            this.$router.push({
+                name:'loginPage'
+            })
         }
     },
     mounted () {

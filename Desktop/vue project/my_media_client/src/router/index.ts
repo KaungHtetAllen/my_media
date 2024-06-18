@@ -15,6 +15,11 @@ const routes: Array<RouteRecordRaw> = [
     path:'/postDetail/:postId',
     name:'postDetail',
     component:()=>import('../views/PostDetail.vue')
+  },
+  {
+    path:'/loginPage',
+    name:'loginPage',
+    component:()=>import('../views/LoginPage.vue')
   }
 ]
 

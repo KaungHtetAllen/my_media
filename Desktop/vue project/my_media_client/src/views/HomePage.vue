@@ -1,6 +1,9 @@
 <template>
     <div>
-
+      <div class="d-flex justify-content-center mt-3">
+        <div @click="home()" class="btn bg-dark mr-5">Home</div>
+        <div @click="loginPage()" class="btn bg-dark">Login</div>
+      </div>
         <!-- Whats New Start -->
         <section class="whats-news-area pt-50 pb-20">
             <div class="container">
