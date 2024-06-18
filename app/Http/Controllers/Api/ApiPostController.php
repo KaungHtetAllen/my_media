@@ -24,4 +24,12 @@ class ApiPostController extends Controller
             'searchData'=>$posts
         ]);
     }
+
+    //
+    public function postDetails(Request $request){
+        $post = Post::where('id',$request->postId)->first();
+        return response()->json([
+            'post'=>$post
+        ]);
+    }
 }
