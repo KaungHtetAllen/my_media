@@ -12,9 +12,9 @@ const routes: Array<RouteRecordRaw> = [
     component:()=>import('../views/HomePage.vue'),
   },
   {
-    path:'/postDetail',
+    path:'/postDetail/:postId',
     name:'postDetail',
-    component:()=>import('../views/PostDetails.vue')
+    component:()=>import('../views/PostDetail.vue')
   }
 ]
 

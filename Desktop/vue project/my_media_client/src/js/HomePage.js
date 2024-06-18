@@ -81,7 +81,7 @@ export default {
             this.$router.push({
                 name:'postDetail', //name from index.ts 
                 params:{
-                    postId:id
+                    postId : id,
                 }
             });
         }
