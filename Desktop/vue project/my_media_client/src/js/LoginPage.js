@@ -1,4 +1,5 @@
 import axios from "axios"
+import { mapGetters } from "vuex"
 
 export default{
         name:'loginPage',
@@ -9,6 +10,9 @@ export default{
                                 password:'',
                         }
                 }
+        },
+        computed:{             //call from store and show
+                ...mapGetters(['getToken','getUserData'])
         },
         methods: {
                 home () {
@@ -30,7 +34,8 @@ export default{
                                         console.log('There is no account');
                                 }
                                 else{
-                                        console.log('Login Success');
+                                        this.$store.dispatch('setToken',response.data.token);       //go to store 
+                                        this.$store.dispatch('setUserData',response.data.user);       //go to store 
                                 }
                             })
                         .catch(error=>console.log(error));

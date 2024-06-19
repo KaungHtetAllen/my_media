@@ -1,13 +1,19 @@
 import { createStore } from 'vuex'
 
 export default createStore({
-  state: {
+  state: {                               //declaration   //step 2 
+    userData : {},
+    token : '', 
   },
-  getters: {
+  getters: {                             //step 3           // get from storeand return to vuejs
+    getToken: state => state.token,
+    getUserData: state => state.userData
   },
   mutations: {
   },
-  actions: {
+  actions: {                              //step 1   //put to store
+    setToken:({state},value)=>state.token = value,
+    setUserData:({state},value)=>state.userData = value,
   },
   modules: {
   }
