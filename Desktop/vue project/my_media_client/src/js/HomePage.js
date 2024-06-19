@@ -75,7 +75,7 @@ export default {
                     }
                 }
                 this.postLists = response.data.result;
-            })
+            }).catch(error=>console.log(error));
         },
         postDetail(id){
             // console.log(id);
