@@ -8,7 +8,9 @@ export default{
                         userData: {
                                 email:'',
                                 password:'',
-                        }
+                        },
+                        tokenStatus:false,
+                        userStatus : false,
                 }
         },
         computed:{             //call from store and show
@@ -31,11 +33,15 @@ export default{
                         .post('http://localhost:8000/api/user/login',this.userData)
                         .then((response)=>{
                                 if(response.data.token == null){
-                                        console.log('There is no account');
+                                        this.userStatus = true;
+                                        this.userData = {};
                                 }
                                 else{
+                                        this.userStatus = false;
                                         this.$store.dispatch('setToken',response.data.token);       //go to store 
                                         this.$store.dispatch('setUserData',response.data.user);       //go to store 
+                                        console.log('login success');
+                                        this.home();
                                 }
                             })
                         .catch(error=>console.log(error));

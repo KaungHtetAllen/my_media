@@ -1,5 +1,5 @@
 import axios from "axios";
-import LoginPage from "./LoginPage";
+import { mapGetters } from "vuex/dist/vuex.cjs.js";
 
 export default {
     name:'HomePage',
@@ -8,7 +8,11 @@ export default {
             postLists:{},
             categoryLists:{},
             searchKey:'',
+            tokenStatus : false,
         }
+    },
+    computed:{
+        ...mapGetters(['getToken','getUserData'])
     },
     methods: {
         getALlPosts () {
@@ -95,9 +99,23 @@ export default {
             this.$router.push({
                 name:'loginPage'
             })
+        },
+        checkToken(){
+            if(this.getToken !== null && this.getToken !== undefined && this.getToken !== ''){
+                this.tokenStatus = true;
+                this.getALlPosts();
+            }
+            else{
+                this.tokenStatus = false;
+            }
+        },
+        accountLogout(){
+            this.$store.dispatch('setToken',null);
+            this.loginPage();
         }
     },
     mounted () {
+        this.checkToken();
         this.getALlPosts();
         this.getAllCategories();
     }

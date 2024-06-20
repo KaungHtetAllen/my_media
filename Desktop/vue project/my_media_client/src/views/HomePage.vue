@@ -1,8 +1,9 @@
 <template>
     <div>
       <div class="d-flex justify-content-center mt-3">
-        <div @click="home()" class="btn bg-dark mr-5">Home</div>
-        <div @click="loginPage()" class="btn bg-dark">Login</div>
+        <div @click="home()" class="btn bg-dark mr-5" v-if="tokenStatus">Home</div>
+        <div @click="loginPage()" class="btn bg-dark" v-if="!tokenStatus">Login</div>
+        <div @click="accountLogout()" class="btn bg-dark" v-if="tokenStatus">Logout</div>
       </div>
         <!-- Whats New Start -->
         <section class="whats-news-area pt-50 pb-20">
@@ -46,29 +47,32 @@
                         aria-labelledby="nav-home-tab"
                       >
                         <div class="whats-news-caption">
-                          <div class="row">
-                            <div v-if="postLists.length == 0" class="mx-auto my-5 d-flex align-items-center" style="height:150px">
-                              <h3 class="text-danger">There is no data!</h3>
-                            </div>
-                            <div v-else class="col-lg-6 col-md-6" v-for="(post,index) in postLists" :key="index">
-                              <div class="single-what-news mb-100" @click="postDetail(post.id)">
-                                <div class="what-img">
-                                  <img
-                                    :src="post.image"
-                                    alt=""
-                                  />
-                                </div>
-                                <div class="what-cap">
-                                  <span class="color1">{{ post.category_title}}</span>
-                                  <h4>
-                                    <a href="details.html"
-                                      >{{ post.title}}</a
-                                    >
-                                  </h4>
+                          <span v-if="!tokenStatus" class="text-danger d-flex justify-content-center my-5 h2">You don't have permission for data.</span>
+                          <span v-else>
+                            <div class="row">
+                              <div v-if="postLists.length == 0" class="mx-auto my-5 d-flex align-items-center" style="height:150px">
+                                <h3 class="text-danger">There is no data!</h3>
+                              </div>
+                              <div v-else class="col-lg-6 col-md-6" v-for="(post,index) in postLists" :key="index">
+                                <div class="single-what-news mb-100" @click="postDetail(post.id)">
+                                  <div class="what-img">
+                                    <img
+                                      :src="post.image"
+                                      alt=""
+                                    />
+                                  </div>
+                                  <div class="what-cap">
+                                    <span class="color1">{{ post.category_title}}</span>
+                                    <h4>
+                                      <a href="details.html"
+                                        >{{ post.title}}</a
+                                      >
+                                    </h4>
+                                  </div>
                                 </div>
                               </div>
                             </div>
-                          </div>
+                          </span>
                         </div>
                       </div>
                     </div>
