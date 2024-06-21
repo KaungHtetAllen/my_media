@@ -1,12 +1,17 @@
 import axios from 'axios';
+import { mapGetters } from 'vuex/dist/vuex.cjs.js';
 
 export default {
     name:'PostDetail',
     data () {
         return {
             postId: 0,
-            posts:{}
+            posts:{},
+            viewCount:0,
         }
+    },
+    computed:{
+        ...mapGetters(['getToken','getUserData'])
     },
     methods: {
         loadPost (id) {
@@ -37,10 +42,22 @@ export default {
             this.$router.push({
                 name:'loginPage'
             })
-        }
+        },
+        viewCountLoading(){
+            let data = {
+                userId:this.getUserData.id,
+                postId:this.$route.params.postId
+            };
+            axios.post('http://localhost:8000/api/post/actionLog',data).then((response)=>{
+                this.viewCount = response.data.posts.length;
+            })
+            .catch(error=>console.log(error));
+        },
     },
     mounted () {
         // console.log(this.$route.params);
+        // console.log(this.getUserData.id);
+        this.viewCountLoading();
         this.postId = this.$route.params.postId;
         this.loadPost(this.postId);
     },
