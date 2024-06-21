@@ -42,17 +42,19 @@
                     <img width="100px" class="img-thumnail rounded shadow" src="{{ asset('postImage/'.$post->image)}}" alt="">
                     @endif
                 </td>
-                <td class="d-flex justify-content-center align-items-center"><i class="fa-solid fa-eye mr-2"></i> <span>0</span></td>
+                <td class="d-flex justify-content-center align-items-center"><i class="fa-solid fa-eye mr-2"></i> <span>{{ $post->post_count }}</span></td>
                 <td>
-                  <button class="btn btn-sm bg-dark text-white"><i class="fa-solid fa-file"></i></button>
+                    <a href="{{ route('admin#trendPostDetails',$post->post_id)}}">
+                        <button class="btn btn-sm bg-dark text-white"><i class="fa-solid fa-file"></i></button>
+                    </a>
                 </td>
               </tr>
             @endforeach
           </tbody>
         </table>
-        <div class="px-5">
+        {{-- <div class="px-5">
             {{ $posts->appends(request()->query())->links() }}
-        </div>
+        </div> --}}
       </div>
       <!-- /.card-body -->
     </div>
